@@ -41,7 +41,9 @@
             android:backgroundTint="@color/colorAccent"
             android:orientation="vertical">
 
-            <include layout="@layout/product_images_layout" />
+            <include
+                layout="@layout/product_images_layout"
+                android:foregroundTint="#FFFFFF" />
 
             <include layout="@layout/rewards_with_product_layout" />
 
@@ -63,39 +65,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-    <LinearLayout
-        android:id="@+id/add_to_cart_btn"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/add_to_cart_btn"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableEnd="@mipmap/cart_black"
-            android:drawablePadding="8dp"
-            android:drawableTint="#485F70"
+            android:background="@color/colorAccent"
+            android:backgroundTint="#FFFFFF"
             android:gravity="center"
-            android:text="ADD TO CARD"
-            android:textColor="#485F70"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal"
+            android:outlineProvider="paddedBounds">
 
-    </LinearLayout>
-    <Button
-        android:id="@+id/buy_now_btn"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:stateListAnimator="@null"
-        android:text="Buy Now"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableEnd="@mipmap/cart_black"
+                android:drawablePadding="8dp"
+                android:drawableTint="#485F70"
+                android:gravity="center"
+                android:text="ADD TO CARD"
+                android:textColor="#485F70"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

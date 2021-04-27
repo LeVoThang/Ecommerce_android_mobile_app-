@@ -47,7 +47,7 @@ import java.util.Map;
 import static com.example.ecommerceapp.MainActivity.showCart;
 import static com.example.ecommerceapp.RegisterActivity.setSignUpFragment;
 
-public class ProductDetailsActivity extends AppCompatActivity implements PaymentResultListener {
+public class ProductDetailsActivity extends AppCompatActivity {
 
     public static boolean running_wishlist_query = false;
     public static boolean running_rating_query = false;
@@ -91,7 +91,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Payment
     private ConstraintLayout productDetailsTabsContainer;
     private TextView productOnlyDescriptionBody;
     private List<ProductSpecificationModel> productSpecificationModelList = new ArrayList<>();
-    private Button buyNowBtn;
     private LinearLayout addToCartBtn;
     private TextView totalRatings;
     private LinearLayout ratingsNoContainer;
@@ -142,7 +141,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Payment
         addToWishlistBtn = findViewById(R.id.add_to_wishlist_btn);
         productDetailsViewpager = findViewById(R.id.product_details_viewpager);
         productDetailsTabLayout = findViewById(R.id.product_details_tablayout);
-        buyNowBtn = findViewById(R.id.buy_now_btn);
         couponRedeemBtn = findViewById(R.id.coupon_redemption_btn);
         productTitle = findViewById(R.id.product_title);
         averageRatingMiniView = findViewById(R.id.average_rating_mini_view);
@@ -331,7 +329,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Payment
                         });
 
                     }else {
-                        buyNowBtn.setVisibility(View.GONE);
                         TextView outOfStock = (TextView) addToCartBtn.getChildAt(0);
                         outOfStock.setText("Out of Stock");
                         outOfStock.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -534,17 +531,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Payment
             });
         }
 
-        /// rating layout
-        buyNowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentUser == null) {
-                    signInDialog.show();
-                }else {
-                   startPayment();
-                }
-            }
-        });
 
 
         /// Coupon Dialog
@@ -748,55 +734,5 @@ public class ProductDetailsActivity extends AppCompatActivity implements Payment
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-    public void startPayment() {
-
-        /**
-         * Instantiate Checkout
-         */
-        Checkout checkout = new Checkout();
-
-        /**
-         * Set your logo here
-         */
-        checkout.setKeyID("rzp_test_CXjWKS6ACHb1ih");
-
-        /**
-         * Reference to current activity
-         */
-        final Activity activity = this;
-
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", "Merchant Name");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", "50000");//pass amount in currency subunits
-            options.put("prefill.email", "levothang.99@gmail.com");
-            options.put("prefill.contact","9988776655");
-            JSONObject retryObj = new JSONObject();
-            retryObj.put("enabled", true);
-            retryObj.put("max_count", 4);
-            options.put("retry", retryObj);
-
-            checkout.open(activity, options);
-
-        } catch(Exception e) {
-           Log.e(TAG, "Error in starting Razorpay Checkout", e);
-        }
-    }
-    @Override
-    public void onPaymentSuccess(String s) {
-        Toast.makeText(this,"Payment Successful",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
     }
 }

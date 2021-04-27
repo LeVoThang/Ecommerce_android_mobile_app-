@@ -81,11 +81,12 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/buy_now_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            android:text="continue"
+            android:text="Buy Now"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:textStyle="bold" />
